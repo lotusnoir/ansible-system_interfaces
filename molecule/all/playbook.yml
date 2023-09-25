@@ -6,11 +6,11 @@
 
   pre_tasks:
     - name: "Build interface list"
-      set_fact:
+      ansible.builtin.set_fact:
         int_list: "{{ ansible_interfaces | difference('lo') | list }}"
 
     - name: "Set infos for single interface"
-      set_fact:
+      ansible.builtin.set_fact:
         interfaces_ether_interfaces:
           device: "{{ item }}"
           bootproto: static
@@ -21,7 +21,7 @@
       when: int_list | length  == 1
 
     - name: "DEBUG: Show interfaces infos"
-      debug:
+      ansible.builtin.debug:
         msg: "{{ interfaces_ether_interfaces }}"
 
   tasks:
