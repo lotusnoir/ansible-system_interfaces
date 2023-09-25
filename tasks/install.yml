@@ -1,6 +1,6 @@
 ---
 - name: "Include family tasks"
-  ansible.builtin.include_tasks: "{{ ansible_facts.os_family | lower }}.yml"
+  ansible.builtin.include_tasks: "{{ ansible_facts['os_family'] | lower }}.yml"
 
 - name: "Include route configuration"
   ansible.builtin.import_tasks: 'route_table_configuration.yml'
@@ -23,7 +23,7 @@
     dest: /etc/network/interfaces
     mode: '0644'
   when:
-    - ansible_facts.os_family | lower == 'debian'
+    - ansible_facts['os_family'] | lower == 'debian'
     - interfaces_merge
 
 - name: "RedHat | ensure network service is started and enabled"
@@ -33,5 +33,5 @@
     enabled: true
     state: started
   when:
-    - ansible_facts.os_family == 'RedHat'
+    - ansible_facts['os_family'] == 'RedHat'
     - not interfaces_use_networkmanager
