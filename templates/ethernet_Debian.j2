@@ -40,7 +40,7 @@ dns-search {{ item.dnssearch }}
 wpa-conf {{ item.wpaconf }}
 {% endif %}
 
-{% if item.route is defined %}
+{% if item.route is defined and item.route | length > 0 %}
 {%   for i in item.route %}
 {# Workaround for Ansible bug https://github.com/ansible/ansible/issues/17872. #}
 {%     if i is mapping %} {# If route is not a mapping, then assume it's a complete rule #}
