@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {% for i in item.route | default([]) %}
 {# Workaround for Ansible bug https://github.com/ansible/ansible/issues/17872. #}
