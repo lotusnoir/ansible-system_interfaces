@@ -197,11 +197,11 @@
     nohup bash -c "
     returncode=0
     {% for interface in all_interfaces_changed | reverse %}
-    ifdown {% if ansible_facts.os_family == 'Debian' %}--allow auto {% endif %}{{ interface }};
+    ifdown {% if ansible_os_family == 'Debian' %}--allow auto {% endif %}{{ interface }};
     {% endfor %}
 
     {% for interface in all_interfaces_changed %}
-    if ! ifup {% if ansible_facts.os_family == 'Debian' %}--allow auto {% endif %}{{ interface }}; then
+    if ! ifup {% if ansible_os_family == 'Debian' %}--allow auto {% endif %}{{ interface }}; then
       echo \"Failed to bring up interface {{ interface }}\";
       returncode=1
     fi;
@@ -236,7 +236,7 @@
            bond_slave_interfaces_changed +
            ether_vlan_interfaces_changed +
            bond_master_interfaces_changed }}
-    all_interfaces_changed: "{{ all_interfaces_changed_map[ansible_facts.os_family] }}"
+    all_interfaces_changed: "{{ all_interfaces_changed_map[ansible_os_family] }}"
   when: not interfaces_use_networkmanager
   notify:
     - Pause to wait for interfaces to become active

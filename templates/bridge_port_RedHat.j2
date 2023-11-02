@@ -14,7 +14,7 @@ ETHTOOL_OPTS="{{ item.0.ethtool_opts }}"
 ONBOOT={{ item.0.onboot }}
 {% endif %}
 
-{% if ansible_facts.distribution_major_version | int >= 7 %}
+{% if ansible_distribution_major_version | int >= 7 %}
 NM_CONTROLLED={{ interfaces_use_networkmanager | ternary('yes', 'no') }}
 {% endif %}
 
