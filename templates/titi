@@ -1,22 +1,44 @@
-{{ ansible_managed | comment }}
+# {{ ansible_managed }}
 
 [connection]
 id={{ item.device }}
-type=bridge
+type=bond
 interface-name={{ item.device }}
 {% if item.zone is defined %}
 zone={{ item.zone }}
 {% endif %}
+
+{% for bridge in interfaces_bridge_interfaces %}
+{%   if item.device in bridge.ports %}
+master={{ bridge.device }}
+slave-type=bridge
+{%   endif %}
+{% endfor %}
 
 {% if item.mtu is defined %}
 [ethernet]
 mtu={{ item.mtu }}
 {% endif %}
 
-[bridge]
-interface-name={{ item.device }}
-{% if item.stp is defined %}
-stp={{ item.stp }}
+[bond]
+{% if item.bond_ad_select is defined %}
+ad_select={{ item.bond_ad_select }}
+{% endif %}
+{% if item.bond_downdelay is defined %}
+downdelay={{ item.bond_downdelay }}
+{% endif %}
+{% if item.bond_lacp_rate is defined %}
+lacp_rate={{ item.bond_lacp_rate }}
+{% endif %}
+miimon={{ item.bond_miimon | default(100) }}
+{% if item.bond_mode is defined %}
+mode={{ item.bond_mode }}
+{% endif %}
+{% if item.bond_updelay is defined %}
+updelay={{ item.bond_updelay }}
+{% endif %}
+{% if item.bond_xmit_hash_policy is defined %}
+xmit_hash_policy={{ item.bond_xmit_hash_policy }}
 {% endif %}
 
 [ipv4]
