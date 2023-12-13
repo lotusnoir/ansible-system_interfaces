@@ -176,7 +176,9 @@
            bond_slave_interfaces_changed +
            ether_vlan_interfaces_changed }}
   listen: Bounce network devices
-  when: interfaces_use_networkmanager
+  when:
+    - interfaces_use_networkmanager
+    - interfaces_skip_handlers | default("false") == "false"
   notify:
     - Gather facts
     - Check active Ethernet interface state
@@ -237,7 +239,9 @@
            ether_vlan_interfaces_changed +
            bond_master_interfaces_changed }}
     all_interfaces_changed: "{{ all_interfaces_changed_map[ansible_os_family] }}"
-  when: not interfaces_use_networkmanager
+  when:
+    - not interfaces_use_networkmanager
+    - interfaces_skip_handlers | default("false") == "false"
   notify:
     - Pause to wait for interfaces to become active
     - Gather facts
