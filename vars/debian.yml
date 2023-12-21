@@ -5,6 +5,4 @@ interfaces_pkgs:
   - ifupdown
   - iproute2
   - python{% if ansible_facts.python.version.major >= 3 %}3{% endif %}-selinux
-  - resolvconf
-
 interfaces_net_path: /etc/network/interfaces.d
