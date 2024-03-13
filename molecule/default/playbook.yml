@@ -14,11 +14,11 @@
         interfaces_ether_interfaces:
           device: "{{ item }}"
           bootproto: static
-          address: "{{ ansible_facts[item]['ipv4']['address']|default(none) }}"
-          netmask: "{{ ansible_facts[item]['ipv4']['netmask']|default(none) }}"
+          address: "{{ ansible_facts[item]['ipv4']['address'] | default(none) }}"
+          netmask: "{{ ansible_facts[item]['ipv4']['netmask'] | default(none) }}"
           gateway: "{{ ansible_facts[item]['ipv4']['address'].split('.')[0:3] | join('.') }}.1"
       with_items: "{{ int_list }}"
-      when: int_list | length  == 1
+      when: int_list | length == 1
 
     - name: "DEBUG: Show interfaces infos"
       ansible.builtin.debug:
