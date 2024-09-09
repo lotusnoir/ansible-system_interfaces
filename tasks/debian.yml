@@ -37,7 +37,7 @@
     dest: /etc/network/interfaces
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   tags: configuration
   when: not interfaces_merge
 
@@ -52,7 +52,7 @@
 - name: Debian | Ensure lo single configuration file
   ansible.builtin.copy:
     dest: /etc/network/interfaces.d/ifcfg-lo
-    mode: 0644
+    mode: '0644'
     content: |
       # Loopback
 
