@@ -6,4 +6,5 @@
 __pycache__/
 .pytest_cache
 .tox
+.ansible
 filter_plugins
