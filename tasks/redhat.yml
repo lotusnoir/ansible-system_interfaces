@@ -4,10 +4,10 @@
   ansible.builtin.package:
     name: '{{  interfaces_pkgs }}'
     state: '{{ interfaces_pkg_state }}'
-  register: pkg_result
+  register: __pkg_result
   retries: 12
   delay: 10
-  until: pkg_result is success
+  until: __pkg_result is success
   tags: package
   when: not interfaces_use_networkmanager
 
@@ -16,10 +16,10 @@
   ansible.builtin.package:
     name: NetworkManager-dispatcher-routing-rules
     state: '{{ interfaces_pkg_state }}'
-  register: pkg_result
+  register: __pkg_result
   retries: 12
   delay: 10
-  until: pkg_result is success
+  until: __pkg_result is success
   tags: package
   when:
     - interfaces_use_networkmanager

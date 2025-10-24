@@ -22,6 +22,7 @@
 ## Description
 
 Configure network interfaces (forked from https://github.com/michaelrigart/ansible-role-interfaces)
+
 ## Requirements
 
 none
@@ -39,7 +40,6 @@ See [variables](/defaults/main.yml) for more details.
           gather_facts: true
           roles:
             - role: ansible-system_interfaces
-
 
 ## License
 
